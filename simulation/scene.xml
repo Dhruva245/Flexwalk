@@ -1,5 +1,6 @@
-<mujoco model="berkeley humanoid scene">
+<mujoco model="flexwalk">
   <include file="robot.xml"/>
+
   <statistic meansize="0.05"/>
 
   <visual>
