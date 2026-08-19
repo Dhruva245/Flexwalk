@@ -24,8 +24,6 @@ We are done with 1st iteration of 3D printing Flexwalk and now working on versio
 <p style="font-family: 'Fira Code', monospace;">
 <ul>
   <li>Filename: Summary</li>
-  <li>Changes of what and why</li>
-  <li>Done by: Name> and Email</li>
 </ul></p>
 
 <h1>Contributors</h1>
