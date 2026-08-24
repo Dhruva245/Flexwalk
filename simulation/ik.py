@@ -7,7 +7,7 @@ import time
 model = mujoco.MjModel.from_xml_path("robot.xml")
 data = mujoco.MjData(model)
 
-STEP_LENGTH = -0.05
+STEP_LENGTH = -0.06
 STEP_HEIGHT = 0.035
 THIGH_LENGTH = 0.253
 CALF_LENGTH = 0.255
@@ -280,7 +280,7 @@ def generate_gait_trajectory(num_steps,dt):
             if swing_is_left:
                 values["left_hip_roll"],values["left_hip_pitch"],values["left_knee_pitch"],values["left_ankle_pitch"] = sw_hr,sw_hip,sw_knee,sw_ankle
 
-                values["right_hip_roll"],values["right_hip_pitch"],values["right_knee_pitch"],values["right_ankle_pitch"] = -st_hr,st_hip,st_knee,st_ankle
+                values["right_hip_roll"],values["right_hip_pitch"],values["right_knee_pitch"],values["right_ankle_pitch"] = st_hr,st_hip,st_knee,st_ankle
 
             else:
 
@@ -290,7 +290,7 @@ def generate_gait_trajectory(num_steps,dt):
 
                 # Right = swing
 
-                values["right_hip_roll"],values["right_hip_pitch"],values["right_knee_pitch"],values["right_ankle_pitch"] = -sw_hr,sw_hip,sw_knee,sw_ankle
+                values["right_hip_roll"],values["right_hip_pitch"],values["right_knee_pitch"],values["right_ankle_pitch"] = sw_hr,sw_hip,sw_knee,sw_ankle
 
             frames.append(make_qpos(values))
 
@@ -341,7 +341,7 @@ def generate_gait_trajectory(num_steps,dt):
                 "world_to_hip_joint": cur_hip_x,
                 "left_hip_roll": l_hr,"left_hip_pitch": l_hip,
                 "left_knee_pitch": l_knee,"left_ankle_pitch": l_ankle,
-                "right_hip_roll": -r_hr,"right_hip_pitch": -r_hip,
+                "right_hip_roll": r_hr,"right_hip_pitch": -r_hip,
                 "right_knee_pitch": r_knee,"right_ankle_pitch": r_ankle,
             }
 
