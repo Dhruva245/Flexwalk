@@ -1,0 +1,614 @@
+<mujoco model="Flexwalk">
+
+  <compiler angle="radian"/>
+  <option gravity="0 0 -9.81"/>
+  <default>
+    <joint damping="5" armature="0.01"/>
+  </default>
+ <statistic meansize="0.05"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="160" elevation="-10"/>
+    <quality shadowsize="8192"/>
+  </visual>
+
+  <asset>
+    <mesh name="Calf_link" file="meshes/Calf_link.stl"/>
+    <mesh name="Hip_Pitch_giver" file="meshes/Hip_Pitch_giver.stl"/>
+    <mesh name="Hip_Pitch_motor_holder" file="meshes/Hip_Pitch_motor_holder.stl"/>
+    <mesh name="Hip_Roll_Motor_Holder" file="meshes/Hip_Roll_Motor_Holder.stl"/>
+    <mesh name="Hip_Roll_giver" file="meshes/Hip_Roll_giver.stl"/>
+    <mesh name="Hip_Support_Roll_Giver" file="meshes/Hip_Support_Roll_Giver.stl"/>
+    <mesh name="Hips_connector" file="meshes/Hips_connector.stl"/>
+    <mesh name="Knee_Pitch_giver" file="meshes/Knee_Pitch_giver.stl"/>
+    <mesh name="Knee_Pitch_motor_holder" file="meshes/Knee_Pitch_motor_holder.stl"/>
+    <mesh name="Left_foot" file="meshes/Left_foot.stl"/>
+    <mesh name="Right_foot" file="meshes/Right_foot.stl"/>
+    <mesh name="Right_foot_cover" file="meshes/Right_foot_cover.stl"/>
+    <mesh name="Support_knee_pitch_giver" file="meshes/Support_knee_pitch_giver.stl"/>
+    <mesh name="Thigh_link" file="meshes/Thigh_link.stl"/>
+
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane" contype="1" conaffinity="1" friction="0.8 0.1 0.1"/>
+
+      <body
+        name="hips_connector"
+        pos="0 0 0.6"
+        quat="9.38184e-07 -0.707105 0.707108 -9.38187e-07">
+
+       <freejoint name="world_to_hip_joint"/>
+        <inertial
+          pos="-1.3588e-17 1.28071e-11 0.0044039"
+          mass="0.153407"
+          fullinertia="0.000275111 0.000302809 0.000303046 0 0 8.65233e-15"/>
+
+        <geom
+          name="hips_connector_geom0"
+          type="mesh"
+          mesh="Hips_connector"
+          pos="0 0 -2.87792e-18"/>
+
+        <!-- ========================================================= -->
+        <!-- LEFT LEG                                                   -->
+        <!-- ========================================================= -->
+
+        <body
+          name="hip_pitch_motor_holder_1"
+          pos="-3.03577e-18 0.04 -0.04209"
+          quat="1.761e-12 -1.32679e-06 1 -1.32679e-06">
+
+          <inertial
+            pos="6.17932e-05 0.00733354 -0.0422518"
+            mass="0.0665385"
+            fullinertia="5.0856e-05 7.99353e-05 5.15416e-05 -3.49399e-08 4.03677e-09 1.72148e-07"/>
+
+          <geom
+            name="hip_pitch_motor_holder_1_geom0"
+            type="mesh"
+            mesh="Hip_Pitch_motor_holder"
+            pos="0 0.03 -0.0540976"/>
+
+          <body
+            name="hip_pitch_giver"
+            pos="-2.6744e-18 0.03515 -0.0420426"
+            quat="1.76038e-12 1.32679e-06 1 1.32679e-06">
+
+            <joint
+              name="left_hip_pitch"
+              type="hinge"
+              axis="0 -1 0"
+              limited="true"
+              range="-1.57 1.57"/>
+
+            <inertial
+              pos="2.23008e-11 -0.000625946 -7.44825e-12"
+              mass="0.0622539"
+              fullinertia="3.48069e-05 6.50536e-05 3.48069e-05 1.94953e-14 -2.22559e-14 -8.07314e-15"/>
+
+            <geom
+              name="hip_pitch_giver_geom0"
+              type="mesh"
+              mesh="Hip_Pitch_giver"
+              pos="0 -0.0068 -0.012055"/>
+
+            <body
+              name="hip_roll_motor_holder"
+              pos="1.19326e-17 0.0055 0.03"
+              quat="1 1.6513e-31 -1.66534e-16 7.2723e-31">
+
+              <inertial
+                pos="0.00115294 0.0447105 -0.029539"
+                mass="0.139283"
+                fullinertia="0.000214662 0.000112846 0.000196218 -3.28005e-06 -2.76536e-07 -1.02511e-06"/>
+
+              <geom
+                name="hip_roll_motor_holder_geom0"
+                type="mesh"
+                mesh="Hip_Roll_Motor_Holder"
+                pos="-1.14188e-17 -0.0123 -0.042055"/>
+
+              <body
+                name="hip_roll_giver"
+                pos="0.04175 0.06 -0.03"
+                quat="0.707105 -0.707108 1.96262e-17 3.60455e-23">
+
+                <joint
+                  name="left_hip_roll"
+                  type="hinge"
+                  axis="-1 0 0"
+                  limited="true"
+                  range="-0.35 0.35"/>
+
+                <inertial
+                  pos="0.00427403 -1.47914e-12 6.32288e-13"
+                  mass="0.064611"
+                  fullinertia="7.05023e-05 3.80162e-05 3.80162e-05 0 0 0"/>
+
+                <geom
+                  name="hip_roll_giver_geom0"
+                  type="mesh"
+                  mesh="Hip_Roll_giver"
+                  pos="-0.032 -0.0723 -0.012055"/>
+
+                <body
+                  name="hip_support_roll_giver_1"
+                  pos="-0.075 -3.85095e-17 -1.11022e-16"
+                  quat="0.707105 -0.707108 9.46193e-23 -5.15187e-17">
+
+                  <inertial
+                    pos="-0.00133328 1.14586e-12 4.47718e-13"
+                    mass="0.0632597"
+                    fullinertia="7.02704e-05 3.78885e-05 3.78885e-05 0 0 0"/>
+
+                  <geom
+                    name="hip_support_roll_giver_1_geom0"
+                    type="mesh"
+                    mesh="Hip_Support_Roll_Giver"
+                    pos="0.044 -0.0723 -0.012055"/>
+                </body>
+
+                <body
+                  name="thigh_link"
+                  pos="0.011 0.03 -2.77556e-17"
+                  quat="0.707105 -0.707108 -5.40682e-23 2.94393e-17">
+
+                  <inertial
+                    pos="-0.0487322 7.95783e-05 -0.0737465"
+                    mass="0.306707"
+                    fullinertia="0.000935953 0.00144387 0.000681281 -2.52387e-09 1.29164e-06 2.43435e-06"/>
+
+                  <geom
+                    name="thigh_link_geom0"
+                    type="mesh"
+                    mesh="Thigh_link"
+                    pos="-0.068 0.120831 -0.508422"/>
+
+                  <body
+                    name="knee_pitch_motor_holder"
+                    pos="-0.0478918 0.000656042 -0.252888"
+                    quat="0.707105 -5.00404e-16 -4.48328e-17 -0.707108">
+
+                    <inertial
+                      pos="0.00664123 -8.11425e-05 0.000628222"
+                      mass="0.0944902"
+                      fullinertia="0.000118858 9.32195e-05 0.000101528 -1.27591e-07 -3.43641e-07 -4.81669e-09"/>
+
+                    <geom
+                      name="knee_pitch_motor_holder_geom0"
+                      type="mesh"
+                      mesh="Knee_Pitch_motor_holder"
+                      pos="0.0045 -0.0723 -0.012055"/>
+
+                    <body
+                      name="knee_pitch_giver_1"
+                      pos="0.03625 -1.99493e-17 5.55112e-17"
+                      quat="0.707105 0.707108 -3.13038e-15 -2.19322e-15">
+
+                      <joint
+                        name="left_knee_pitch"
+                        type="hinge"
+                        axis="-1 0 0"
+                        limited="true"
+                        range="-2.0944 2.0944"/>
+
+                      <inertial
+                        pos="0.00443636 -3.44877e-13 -4.35468e-14"
+                        mass="0.0673682"
+                        fullinertia="7.52653e-05 4.03808e-05 4.03808e-05 0 0 0"/>
+
+                      <geom
+                        name="knee_pitch_giver_1_geom0"
+                        type="mesh"
+                        mesh="Knee_Pitch_giver"
+                        pos="-0.032 -0.0723 -0.012055"/>
+
+                      <body
+                        name="calf_link"
+                        pos="0.011 -2.77556e-17 -4.42354e-17"
+                        quat="1 -3.19189e-16 2.23086e-15 -1.17614e-15">
+
+                        <inertial
+                          pos="-0.0466904 -0.0887847 -3.99395e-05"
+                          mass="0.288034"
+                          fullinertia="0.00229665 0.000483546 0.00262332 3.31967e-05 3.04701e-08 -1.55886e-06"/>
+
+                        <geom
+                          name="calf_link_geom0"
+                          type="mesh"
+                          mesh="Calf_link"
+                          pos="-0.105 -0.045 0"/>
+
+                        <body
+                          name="left_foot"
+                          pos="-0.0382431 -0.254819 -0.000643039"
+                          quat="0.707105 1.93384e-14 0.707108 -1.93383e-14">
+
+                          <joint
+                            name="left_ankle_pitch"
+                            type="hinge"
+                            axis="-1.22465e-16 1.08202e-14 -1"
+                            limited="true"
+                            range="-0.785398 0.785398"/>
+
+                          <inertial
+                            pos="-0.0119462 -0.00954337 -0.0247906"
+                            mass="0.104954"
+                            fullinertia="5.371e-05 0.000116294 0.000112144 -1.80851e-05 3.80718e-06 7.63279e-06"/>
+
+                          <geom
+                            name="left_foot_geom0"
+                            type="mesh"
+                            mesh="Left_foot"
+                            pos="-0.0211332 0.000162697 -0.129191"
+                            contype="1"
+                            conaffinity="1"
+                            friction="0.8 0.1 0.1"/>
+
+                          <body
+                            name="left_foot_cover__2_"
+                            pos="-6.93889e-18 -1.11022e-16 0.024"
+                            quat="1 1.38778e-17 -5.5511e-17 1.66534e-16">
+
+                            <inertial
+                              pos="0 0 0"
+                              mass="1e-09"
+                              fullinertia="4e-14 4e-14 4e-14 0 0 0"/>
+                          </body>
+
+                        </body>
+                      </body>
+
+                      <body
+                        name="support_knee_pitch_giver_1"
+                        pos="-0.075 -5.55112e-17 -3.98986e-17"
+                        quat="1 4.71845e-16 2.13891e-15 -1.21778e-15">
+
+                        <inertial
+                          pos="-0.00149647 1.11855e-14 -2.03969e-14"
+                          mass="0.0660169"
+                          fullinertia="7.50333e-05 4.02519e-05 4.02519e-05 0 0 0"/>
+
+                        <geom
+                          name="support_knee_pitch_giver_1_geom0"
+                          type="mesh"
+                          mesh="Support_knee_pitch_giver"
+                          pos="0.044 -0.0723 -0.012055"/>
+                      </body>
+
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+
+        <!-- ========================================================= -->
+        <!-- RIGHT LEG                                                  -->
+        <!-- ========================================================= -->
+
+        <body
+          name="hip_pitch_motor_holder"
+          pos="-3.03577e-18 -0.04 -0.04209"
+          quat="1.32679e-06 1 5.55129e-17 -1.45717e-15">
+
+          <inertial
+            pos="6.17932e-05 0.00733354 -0.0422518"
+            mass="0.0665385"
+            fullinertia="5.0856e-05 7.99353e-05 5.15416e-05 -3.49399e-08 4.03677e-09 1.72148e-07"/>
+
+          <geom
+            name="hip_pitch_motor_holder_geom0"
+            type="mesh"
+            mesh="Hip_Pitch_motor_holder"
+            pos="0 0.03 -0.0540976"/>
+
+          <body
+            name="hip_pitch_giver_1"
+            pos="-4.02881e-21 0.03515 -0.0420426"
+            quat="1 -3.59972e-16 1.41554e-15 -6.12325e-17">
+
+            <joint
+              name="right_hip_pitch"
+              type="hinge"
+              axis="0 1 -1.22465e-16"
+              limited="true"
+              range="-1.57 1.57"/>
+
+            <inertial
+              pos="2.23008e-11 -0.000625946 -7.44825e-12"
+              mass="0.0622539"
+              fullinertia="3.48069e-05 6.50536e-05 3.48069e-05 1.94953e-14 -2.22559e-14 -8.07314e-15"/>
+
+            <geom
+              name="hip_pitch_giver_1_geom0"
+              type="mesh"
+              mesh="Hip_Pitch_giver"
+              pos="0 -0.0068 -0.012055"/>
+
+            <body
+              name="hip_roll_motor_holder_1"
+              pos="3.63798e-19 0.0055 -0.03"
+              quat="1 2.23263e-16 -4.16333e-17 5.29425e-16">
+
+              <inertial
+                pos="0.00115294 0.0447105 0.030461"
+                mass="0.139283"
+                fullinertia="0.000214662 0.000112846 0.000196218 -3.28005e-06 -2.76536e-07 -1.02511e-06"/>
+
+              <geom
+                name="hip_roll_motor_holder_1_geom0"
+                type="mesh"
+                mesh="Hip_Roll_Motor_Holder"
+                pos="-3.63798e-19 -0.0123 0.017945"/>
+
+              <body
+                name="hip_roll_giver_1"
+                pos="0.03175 0.06 0.03"
+                quat="0.707105 -0.707108 -1.17758e-16 3.53271e-16">
+
+                <joint
+                  name="right_hip_roll"
+                  type="hinge"
+                  axis="1 0 1.22465e-16"
+                  limited="true"
+                  range="-0.35 0.35"/>
+
+                <inertial
+                  pos="0.00427403 -1.47915e-12 6.32284e-13"
+                  mass="0.064611"
+                  fullinertia="7.05023e-05 3.80162e-05 3.80162e-05 0 0 0"/>
+
+                <geom
+                  name="hip_roll_giver_1_geom0"
+                  type="mesh"
+                  mesh="Hip_Roll_giver"
+                  pos="-0.032 -0.0723 -0.012055"/>
+
+                <body
+                  name="hip_support_roll_giver"
+                  pos="-0.075 -4.54484e-17 -5.55112e-17"
+                  quat="0.707105 0.707108 -3.72897e-16 6.84864e-22">
+
+                  <inertial
+                    pos="-0.00133328 1.14586e-12 4.4772e-13"
+                    mass="0.0632597"
+                    fullinertia="7.02704e-05 3.78885e-05 3.78885e-05 0 0 0"/>
+
+                  <geom
+                    name="hip_support_roll_giver_geom0"
+                    type="mesh"
+                    mesh="Hip_Support_Roll_Giver"
+                    pos="0.044 -0.0723 -0.012055"/>
+                </body>
+
+                <body
+                  name="thigh_link_1"
+                  pos="0.011 -0.03 -5.55112e-17"
+                  quat="0.707105 0.707108 -7.26168e-16 -5.88782e-16">
+
+                  <inertial
+                    pos="-0.0487322 7.95783e-05 -0.0737465"
+                    mass="0.306707"
+                    fullinertia="0.000935953 0.00144387 0.000681281 -2.52387e-09 1.29164e-06 2.43435e-06"/>
+
+                  <geom
+                    name="thigh_link_1_geom0"
+                    type="mesh"
+                    mesh="Thigh_link"
+                    pos="-0.068 0.120831 -0.508422"/>
+
+                  <body
+                    name="knee_pitch_motor_holder_1"
+                    pos="-0.0478918 0.000656042 -0.252888"
+                    quat="-9.38184e-07 0.707105 0.707108 -9.38187e-07">
+
+                    <inertial
+                      pos="0.00664123 -8.11425e-05 0.000628222"
+                      mass="0.0944902"
+                      fullinertia="0.000118858 9.32195e-05 0.000101528 -1.27591e-07 -3.43641e-07 -4.81669e-09"/>
+
+                    <geom
+                      name="knee_pitch_motor_holder_1_geom0"
+                      type="mesh"
+                      mesh="Knee_Pitch_motor_holder"
+                      pos="0.0045 -0.0723 -0.012055"/>
+
+                    <body
+                      name="knee_pitch_giver"
+                      pos="0.03625 -1.73472e-17 1.11022e-16"
+                      quat="0.707105 -0.707108 1.5718e-15 7.06542e-15">
+
+                      <joint
+                        name="right_knee_pitch"
+                        type="hinge"
+                        axis="1 1.22465e-16 0"
+                        limited="true"
+                        range="-2.0944 2.0944"/>
+
+                      <inertial
+                        pos="0.00443636 -3.44877e-13 -4.35468e-14"
+                        mass="0.0673682"
+                        fullinertia="7.52653e-05 4.03808e-05 4.03808e-05 0 0 0"/>
+
+                      <geom
+                        name="knee_pitch_giver_geom0"
+                        type="mesh"
+                        mesh="Knee_Pitch_giver"
+                        pos="-0.032 -0.0723 -0.012055"/>
+
+                      <body
+                        name="calf_link_1"
+                        pos="0.011 -1.11022e-16 0"
+                        quat="-1.75849e-12 1.32679e-06 1 -1.32679e-06">
+
+                        <inertial
+                          pos="0.0483096 -0.0887847 -3.99395e-05"
+                          mass="0.288034"
+                          fullinertia="0.00229665 0.000483546 0.00262332 3.31967e-05 3.04701e-08 -1.55886e-06"/>
+
+                        <geom
+                          name="calf_link_1_geom0"
+                          type="mesh"
+                          mesh="Calf_link"
+                          pos="-0.01 -0.045 0"/>
+
+                        <body
+                          name="right_foot"
+                          pos="0.0487569 -0.254819 -0.000643039"
+                          quat="0.707105 1.93384e-14 0.707108 -1.93383e-14">
+
+                          <joint
+                            name="right_ankle_pitch"
+                            type="hinge"
+                            axis="-1.22465e-16 1.09426e-14 -1"
+                            limited="true"
+                            range="-0.785398 0.785398"/>
+
+                          <inertial
+                            pos="-0.0119462 -0.00954337 0.0247906"
+                            mass="0.104954"
+                            fullinertia="5.371e-05 0.000116294 0.000112144 -1.80851e-05 -3.80718e-06 -7.63279e-06"/>
+
+                          <geom
+                            name="right_foot_geom0"
+                            type="mesh"
+                            mesh="Right_foot"
+                            pos="-0.0211332 0.000162697 -0.0461908"
+                            contype="1"
+                            conaffinity="1"
+                            friction="0.8 0.1 0.1"/>
+
+                          <body
+                            name="right_foot_cover"
+                            pos="-7.80626e-18 1.11022e-16 -0.024"
+                            quat="1 1.38778e-17 -5.5511e-17 1.66534e-16">
+
+                            <inertial
+                              pos="-0.0115055 -0.00626797 0.00296657"
+                              mass="0.0535667"
+                              fullinertia="1.29327e-05 4.79415e-05 5.99728e-05 -9.18268e-06 2.06038e-08 1.12246e-08"/>
+
+                            <geom
+                              name="right_foot_cover_geom0"
+                              type="mesh"
+                              mesh="Right_foot_cover"
+                              pos="-0.0211332 0.000162697 -0.157191"/>
+                          </body>
+
+                        </body>
+                      </body>
+
+                      <body
+                        name="support_knee_pitch_giver"
+                        pos="-0.075 -1.11022e-16 -4.25007e-17"
+                        quat="1 -1.48493e-15 -1.07379e-15 -4.74621e-15">
+
+                        <inertial
+                          pos="-0.00149647 1.11994e-14 -2.03969e-14"
+                          mass="0.0660169"
+                          fullinertia="7.50333e-05 4.02519e-05 4.02519e-05 0 0 0"/>
+
+                        <geom
+                          name="support_knee_pitch_giver_geom0"
+                          type="mesh"
+                          mesh="Support_knee_pitch_giver"
+                          pos="0.044 -0.0723 -0.012055"/>
+                      </body>
+
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+
+      </body>
+
+  </worldbody>
+
+  <keyframe>
+    <key
+      name="initial"
+      qpos="0 0 0 1 0 0 0 0 0 0 0 0 0 0 0"/>
+  </keyframe>
+
+  <actuator>
+
+    <position
+      name="left_hip_pitch_motor"
+      joint="left_hip_pitch"
+      kp="100"
+      ctrlrange="-1.57 1.57"/>
+
+    <position
+      name="left_hip_roll_motor"
+      joint="left_hip_roll"
+      kp="100"
+      ctrlrange="-0.35 0.35"/>
+
+    <position
+      name="left_knee_pitch_motor"
+      joint="left_knee_pitch"
+      kp="100"
+      ctrlrange="-2.0944 2.0944"/>
+
+    <position
+      name="left_ankle_pitch_motor"
+      joint="left_ankle_pitch"
+      kp="100"
+      ctrlrange="-0.785398 0.785398"/>
+
+    <position
+      name="right_hip_pitch_motor"
+      joint="right_hip_pitch"
+      kp="100"
+      ctrlrange="-1.57 1.57"/>
+
+    <position
+      name="right_hip_roll_motor"
+      joint="right_hip_roll"
+      kp="100"
+      ctrlrange="-0.35 0.35"/>
+
+    <position
+      name="right_knee_pitch_motor"
+      joint="right_knee_pitch"
+      kp="100"
+      ctrlrange="-2.0944 2.0944"/>
+
+    <position
+      name="right_ankle_pitch_motor"
+      joint="right_ankle_pitch"
+      kp="100"
+      ctrlrange="-0.785398 0.785398"/>
+
+  </actuator>
+  <contact>
+
+      <pair
+          geom1="floor"
+          geom2="left_foot_geom0"
+          friction="1 0.005 0.0001"
+          solref="0.02 1"
+          solimp="0.9 0.95 0.001"/>
+
+      <pair
+          geom1="floor"
+          geom2="right_foot_geom0"
+          friction="1 0.005 0.0001"
+          solref="0.02 1"
+          solimp="0.9 0.95 0.001"/>
+
+  </contact>
+</mujoco>
