@@ -1,7 +1,7 @@
 <mujoco model="flexwalk_v2">
 
     <compiler angle="radian"/>
-    <option gravity="0 0 -9.81"/>
+    <option gravity="0 0 -9.81" timestep="0.001"/>
 
     <!-- ========================================================= -->
     <!-- VISUAL                                                    -->
@@ -149,7 +149,8 @@
                         name="hip_pitch_r"
                         pos="0 0 0"
                         axis="-1 1.22465e-16 0"
-                        damping="0.5"/>
+                        damping="0.5"
+                        armature ="0.01"/>
 
                     <geom
                         pos="0.004 0 0.01242"
@@ -178,7 +179,8 @@
                             name="hip_roll_r"
                             pos="0 0 0"
                             axis="1 0 0"
-                            damping="0.5"/>
+                            damping="0.5"
+                            armature="0.01"/>
 
                         <geom
                             pos="0.004 0 0.01242"
@@ -214,7 +216,8 @@
                                 name="knee_pitch_r"
                                 pos="0 0 0"
                                 axis="-1 0 0"
-                                damping="0.5"/>
+                                damping="0.5"
+                                armature="0.01"/>
 
                             <geom
                                 pos="0.004 0 -0.01242"
@@ -250,7 +253,8 @@
                                     name="ankle_pitch_r"
                                     pos="0 0 0"
                                     axis="-1 -1.15648e-16 0"
-                                    damping="0.5"/>
+                                    damping="0.5"
+                                    armature="0.01"/>
 
                                 <geom
                                     pos="-0.0904319 0 -0.033"
@@ -282,7 +286,9 @@
                     quat="1 0 0 0"
                     type="mesh"
                     rgba="0.647059 0.647059 0.647059 1"
-                    mesh="Hip_pitch_motor_holder"/>
+                    mesh="Hip_pitch_motor_holder"
+                    contype="0"
+                    conaffinity="0"/>
 
                 <body
                     name="hip_pitch_giver"
@@ -297,7 +303,8 @@
                         name="hip_pitch_l"
                         pos="0 0 0"
                         axis="1 0 0"
-                        damping="0.5"/>
+                        damping="0.5"
+                        armature="0.01"/>
 
                     <geom
                         pos="0.004 0 -0.01242"
@@ -326,7 +333,8 @@
                             name="hip_roll_l"
                             pos="0 0 0"
                             axis="1 0 0"
-                            damping="0.5"/>
+                            damping="0.5"
+                            armature="0.01"/>
 
                         <geom
                             pos="0.004 0 0.01242"
@@ -362,7 +370,8 @@
                                 name="knee_pitch_l"
                                 pos="0 0 0"
                                 axis="1 0 0"
-                                damping="0.5"/>
+                                damping="0.5"
+                                armature="0.01"/>
 
                             <geom
                                 pos="0.004 0 -0.01242"
@@ -398,7 +407,8 @@
                                     name="ankle_pitch_l"
                                     pos="0 0 0"
                                     axis="-1 -1.15648e-16 0"
-                                    damping="0.5"/>
+                                    damping="0.5"
+                                    armature="0.01"/>
 
                                 <geom
                                     pos="0.0144319 0 -0.033"
@@ -424,74 +434,90 @@
             <position
                 name="left_hip_pitch"
                 joint="hip_pitch_l"
-                kp="0.25"
                 ctrlrange="-3.14159 3.14159"
+                kp="20"
+                kv="0.8"
                 ctrllimited="true"
-                forcerange="-10 10"
-                forcelimited="true"/>
+                forcerange="-2.9 2.9"
+                forcelimited="true"
+                />
 
             <position
                 name="left_hip_roll"
                 joint="hip_roll_l"
-                kp="0.25"
                 ctrlrange="-0.4 3.73"
+                kp="20"
+                kv="0.8"
                 ctrllimited="true"
-                forcerange="-10 10"
-                forcelimited="true"/>
+                forcerange="-2.9 2.9"
+                forcelimited="true"
+                />
 
             <position
                 name="left_knee_pitch"
                 joint="knee_pitch_l"
-                kp="0.25"
                 ctrlrange="-2.49 2.64"
+                kp="20"
+                kv="0.8"
                 ctrllimited="true"
-                forcerange="-10 10"
-                forcelimited="true"/>
+                forcerange="-2.9 2.9"
+                forcelimited="true"
+                />
 
             <position
                 name="left_ankle_pitch"
                 joint="ankle_pitch_l"
-                kp="0.25"
                 ctrlrange="-1.6 1.06"
+                kp="20"
+                kv="0.8"
                 ctrllimited="true"
-                forcerange="-10 10"
-                forcelimited="true"/>
+                forcerange="-2.9 2.9"
+                forcelimited="true"
+                />
 
             <position
                 name="right_hip_pitch"
                 joint="hip_pitch_r"
-                kp="0.25"
                 ctrlrange="-3.14159 3.14159"
+                kp="20"
+                kv="0.8"
                 ctrllimited="true"
-                forcerange="-10 10"
-                forcelimited="true"/>
+                forcerange="-2.9 2.9"
+                forcelimited="true"
+                />
 
             <position
                 name="right_hip_roll"
                 joint="hip_roll_r"
-                kp="0.25"
                 ctrlrange="-0.4 3.73"
+                kp="20"
+                kv="0.8"
                 ctrllimited="true"
-                forcerange="-10 10"
-                forcelimited="true"/>
+                forcerange="-2.9 2.9"
+                forcelimited="true"
+                />
 
             <position
                 name="right_knee_pitch"
                 joint="knee_pitch_r"
-                kp="0.25"
                 ctrlrange="-2.48 2.64"
+                kp="20"
+                kv="0.8"
                 ctrllimited="true"
-                forcerange="-10 10"
-                forcelimited="true"/>
+                forcerange="-2.9 2.9"
+                forcelimited="true"
+                />
 
             <position
                 name="right_ankle_pitch"
                 joint="ankle_pitch_r"
-                kp="0.25"
                 ctrlrange="-1.6 1.06"
+                kp="20"
+                kv="0.8"
                 ctrllimited="true"
-                forcerange="-10 10"
-                forcelimited="true"/>
+                forcerange="-2.9 2.9"
+                forcelimited="true"
+                />
 
         </actuator>
 
